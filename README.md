@@ -23,8 +23,8 @@ Desenvolvimento:
 ```sh
 git clone https://github.com/andrersp/azulerosa
 cd azulerosa
-sudo docker-compose up -d --build
-docker-compose exec api python app.py create_db
+docker-compose up -d --build
+
 
 ```
 
