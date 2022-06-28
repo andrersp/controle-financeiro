@@ -1,6 +1,8 @@
 package main_test
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
@@ -35,37 +37,43 @@ func TestMain(m *testing.M) {
 
 }
 
-func TestGetUsers(t *testing.T) {
+// func TestGetUsers(t *testing.T) {
 
-	req, _ := http.NewRequest("GET", "/users", nil)
-	response := executeRequest(req)
-	checkResponseCode(t, http.StatusOK, response.Code)
+// 	req, _ := http.NewRequest("GET", "/users", nil)
+// 	response := executeRequest(req)
+// 	checkResponseCode(t, http.StatusOK, response.Code)
 
-}
+// 	body := getResponseBody(response)
+
+// 	assert.Equal(t, true, body["success"], "Error response sucess")
+
+// }
 
 func TestCreateuser(t *testing.T) {
 
-	req, _ := http.NewRequest("POST", "/users", nil)
+	var strUser = []byte(`{"name": "Andre Luis", "email": "rsp.assistencia@gmail.com"`)
+
+	req, _ := http.NewRequest("POST", "/users", bytes.NewBuffer(strUser))
 	response := executeRequest(req)
 	checkResponseCode(t, http.StatusCreated, response.Code)
 
 }
 
-func TestGetUser(t *testing.T) {
+// func TestGetUser(t *testing.T) {
 
-	req, _ := http.NewRequest("GET", "/users/1", nil)
-	response := executeRequest(req)
-	checkResponseCode(t, http.StatusOK, response.Code)
+// 	req, _ := http.NewRequest("GET", "/users/1", nil)
+// 	response := executeRequest(req)
+// 	checkResponseCode(t, http.StatusOK, response.Code)
 
-}
+// }
 
-func TestUpdateUser(t *testing.T) {
+// func TestUpdateUser(t *testing.T) {
 
-	req, _ := http.NewRequest("PUT", "/users/1", nil)
-	response := executeRequest(req)
-	checkResponseCode(t, http.StatusOK, response.Code)
+// 	req, _ := http.NewRequest("PUT", "/users/1", nil)
+// 	response := executeRequest(req)
+// 	checkResponseCode(t, http.StatusOK, response.Code)
 
-}
+// }
 
 func executeRequest(req *http.Request) *httptest.ResponseRecorder {
 	rr := httptest.NewRecorder()
@@ -75,5 +83,13 @@ func executeRequest(req *http.Request) *httptest.ResponseRecorder {
 
 func checkResponseCode(t *testing.T, expected, actual int) {
 	assert.Equal(t, expected, actual, "Test Error")
+
+}
+
+func getResponseBody(req *httptest.ResponseRecorder) map[string]interface{} {
+
+	response := make(map[string]interface{})
+	json.Unmarshal(req.Body.Bytes(), &response)
+	return response
 
 }

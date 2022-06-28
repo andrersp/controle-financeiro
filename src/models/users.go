@@ -49,6 +49,10 @@ func (u *Users) ValidateOnCreate() (err error) {
 }
 
 func (u *Users) BeforeCreate(tx *gorm.DB) (err error) {
+
+	if err := u.ValidateOnCreate(); err != nil {
+		return err
+	}
 	u.Name = strings.TrimSpace(u.Name)
 	u.Email = strings.TrimSpace(u.Email)
 	return

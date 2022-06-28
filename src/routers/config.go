@@ -3,6 +3,7 @@ package routers
 import (
 	"net/http"
 
+	"github.com/andrersp/controle-financeiro/src/core"
 	"github.com/gorilla/mux"
 )
 
@@ -17,7 +18,7 @@ func configureRouters(r *mux.Router) *mux.Router {
 	userRouters := userRouters
 
 	for _, router := range userRouters {
-		r.HandleFunc(router.URI, router.Func).Methods(router.Method)
+		r.HandleFunc(router.URI, core.Logger(router.Func)).Methods(router.Method)
 	}
 
 	return r
