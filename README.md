@@ -21,7 +21,7 @@ Api desenvolvida utilizando [Go](https://go.dev/), [gorilla/mux](https://github.
 ## Deploy
 Desenvolvimento:
 ```sh
-git clone https://github.com/andrersp/azulerosa
+git clone https://github.com/andrersp/controle-financeiro.git
 cd azulerosa
 docker-compose up --build
 
