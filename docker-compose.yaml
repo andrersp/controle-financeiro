@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:9.6-alpine
+    volumes:
+      - db_data:/var/lib/postgresql/data/
+      - "/etc/timezone:/etc/timezone:ro"
+      - "/etc/localtime:/etc/localtime:ro"
+    environment:
+      - POSTGRES_USER=golang
+      - POSTGRES_PASSWORD=golang
+      - POSTGRES_DB=financeiro
+    networks:
+      - db_network
+    ports:
+      - 5432:5432
+
+networks:
+  db_network:
+volumes:
+  db_data:

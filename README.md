@@ -23,7 +23,7 @@ Desenvolvimento:
 ```sh
 git clone https://github.com/andrersp/azulerosa
 cd azulerosa
-docker-compose up -d --build
+docker-compose up --build
 
 
 ```
