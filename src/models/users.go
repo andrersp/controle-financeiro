@@ -5,6 +5,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/andrersp/controle-financeiro/src/core"
 	"github.com/badoux/checkmail"
 	"gorm.io/gorm"
 )
@@ -25,7 +26,7 @@ type Users struct {
 type UserResume struct {
 	ID    uint   `json:"id,omitempty"`
 	Name  string `json:"name,omitempty"`
-	Email string `json:"nick,omitempty"`
+	Email string `json:"email,omitempty"`
 }
 
 func (u *Users) ValidateOnCreate() (err error) {
@@ -55,5 +56,13 @@ func (u *Users) BeforeCreate(tx *gorm.DB) (err error) {
 	}
 	u.Name = strings.TrimSpace(u.Name)
 	u.Email = strings.TrimSpace(u.Email)
+
+	hashedPassword, err := core.HashGenerator(u.Password)
+
+	if err != nil {
+		return err
+	}
+
+	u.Password = string(hashedPassword)
 	return
 }

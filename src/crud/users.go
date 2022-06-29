@@ -18,15 +18,18 @@ func NewCrudUser(db *gorm.DB) *User {
 }
 
 // Create New User
-func (u User) Create(user models.Users) (models.UserResume, error) {
+func (u User) Create(user models.Users) (database.SinglePage, error) {
+
+	var result database.SinglePage
 
 	var userResume models.UserResume
 
-	if err := u.db.Model(&models.Users{}).Create(&user).Find(&userResume).Error; err != nil {
-		return userResume, err
+	if err := u.db.Scopes(database.SingleResult(&models.Users{}, &result, u.db)).Model(&models.Users{}).Create(&user).Find(&userResume).Error; err != nil {
+		return database.SinglePage{}, err
 	}
+	result.Data = userResume
 
-	return userResume, nil
+	return result, nil
 }
 
 // SearchUsers from name or email
@@ -34,15 +37,18 @@ func (u User) SearchUsers(nameOrEmail string, req *http.Request) (database.Pagin
 
 	results := database.Pagination{}
 
-	var users []models.Users
+	var users []models.UserResume
 	nameOrEmail = fmt.Sprintf("%%%s%%", nameOrEmail)
 
-	query := u.db.Scopes(database.Paginator([]models.Users{}, &results, u.db, req)).
-		Select("id", "name").Where("name LIKE ? OR email LIKE ?", nameOrEmail, nameOrEmail).Find(&users)
+	query := u.db.
+		Scopes(database.Paginator([]models.Users{}, &results, u.db, req)).
+		Model(&models.Users{}).
+		Select("id", "name", "email").Where("name LIKE ? OR email LIKE ?", nameOrEmail, nameOrEmail).Find(&users)
 
 	if err := query.Error; err != nil {
 		return results, err
 	}
+	results.Data = users
 	return results, nil
 
 }
