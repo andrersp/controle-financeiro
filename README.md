@@ -1,7 +1,9 @@
 # API de controle financeiro
 
-> Desenvolvimento de API para mostruário on-line de produtos da **Azul e Rosa Personalizados**.
-Api desenvolvida utilizando [Go](https://go.dev/), [gorilla/mux](https://github.com/gorilla/mux), [PostgreSQL](https://www.postgresql.org/) e [Docker](https://www.docker.com/).
+> Desenvolvimento de API para cadastro e controle de despesas pessoais.
+> O Ojetivo do desenvovimento desta api é colocar em prática tudo que aprendi durante o curso de **Golang** pela [Udemy](https://www.udemy.com/course/aprenda-golang-do-zero-desenvolva-uma-aplicacao-completa/) com o professor [Otávio Augusto Gallego](https://www.udemy.com/course/aprenda-golang-do-zero-desenvolva-uma-aplicacao-completa/#instructor-1).
+
+> Api desenvolvida utilizando [Go](https://go.dev/), [gorilla/mux](https://github.com/gorilla/mux), [PostgreSQL](https://www.postgresql.org/) e [Docker](https://www.docker.com/).
 
 ![Badge](https://img.shields.io/static/v1?label=Go&message=1.18&color=green&style=flat&logo=GO)
 
