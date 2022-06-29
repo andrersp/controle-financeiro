@@ -13,7 +13,7 @@
 
 # Features
 ### Gerenciamento
-- [ ] Cadastro de usuários
+- [x] Cadastro de usuários
 - [ ] Autencicação com JWT
 - [ ] Cadastro de fornecedor/credor
 - [ ] Cadastro de contas a pagar

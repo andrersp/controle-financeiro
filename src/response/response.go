@@ -25,8 +25,14 @@ func responder(w http.ResponseWriter, statusCode int, dados interface{}) {
 }
 func Sucess(w http.ResponseWriter, statusCode int, dados interface{}) {
 
-	if dados == nil && statusCode == 204 {
+	if statusCode == 204 {
 		responder(w, statusCode, nil)
+		return
+	}
+	if dados == nil {
+		var result dataResult
+		result.Success = true
+		responder(w, statusCode, result)
 		return
 	}
 

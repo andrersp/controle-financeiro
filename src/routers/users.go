@@ -19,4 +19,28 @@ var userRouters = []Router{
 		Func:        controllers.CreateUser,
 		RequireAuth: false,
 	},
+	{
+		URI:         "/users/{userID}",
+		Method:      http.MethodGet,
+		Func:        controllers.SelectUser,
+		RequireAuth: false,
+	},
+	{
+		URI:         "/users/{userID}",
+		Method:      http.MethodPut,
+		Func:        controllers.UpdateUser,
+		RequireAuth: false,
+	},
+	{
+		URI:         "/users/{userID}",
+		Method:      http.MethodDelete,
+		Func:        controllers.DeleteUser,
+		RequireAuth: false,
+	},
+	{
+		URI:         "/users/{userID}",
+		Method:      http.MethodPost,
+		Func:        controllers.UpdatePassword,
+		RequireAuth: false,
+	},
 }

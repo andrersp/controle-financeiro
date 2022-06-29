@@ -7,6 +7,7 @@ import (
 	"github.com/andrersp/controle-financeiro/src/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
+	"gorm.io/gorm/logger"
 )
 
 var dbConn *gorm.DB
@@ -16,7 +17,7 @@ func CreateDBConnection() error {
 		CloseConnection(dbConn)
 	}
 
-	db, err := gorm.Open(postgres.Open(core.DATABASE_URI), &gorm.Config{})
+	db, err := gorm.Open(postgres.Open(core.DATABASE_URI), &gorm.Config{Logger: logger.Default.LogMode(logger.Silent)})
 
 	if err != nil {
 		return err

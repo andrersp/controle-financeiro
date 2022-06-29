@@ -1,7 +1,6 @@
 package main_test
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -36,61 +35,6 @@ func TestMain(m *testing.M) {
 	os.Exit(exitVal)
 
 }
-
-func TestUser(t *testing.T) {
-
-	clearTable("users")
-
-	t.Run("Create User", func(t *testing.T) {
-		var strUser = []byte(`{"name": "Andre Luis", "email": "rsp.assistencia@gmail.com", "password": "andre123"}`)
-
-		req, _ := http.NewRequest("POST", "/users", bytes.NewBuffer(strUser))
-
-		response := executeRequest(req)
-		checkResponseCode(t, http.StatusCreated, response.Code)
-
-		body := getResponseBody(response)
-
-		msg := body
-
-		assert.Equal(t, true, msg["success"], fmt.Sprintf("%s", msg))
-
-	})
-
-	t.Run("GetAllUser", func(t *testing.T) {
-		req, _ := http.NewRequest("GET", "/users", nil)
-		response := executeRequest(req)
-		checkResponseCode(t, http.StatusOK, response.Code)
-
-		body := getResponseBody(response)
-
-		assert.Equal(t, true, body["success"], "Error response sucess")
-
-	})
-
-	t.Run("GetUser", func(t *testing.T) {
-		req, _ := http.NewRequest("GET", "/users/1", nil)
-		response := executeRequest(req)
-		checkResponseCode(t, http.StatusOK, response.Code)
-	})
-
-}
-
-// func TestGetUser(t *testing.T) {
-
-// 	req, _ := http.NewRequest("GET", "/users/1", nil)
-// 	response := executeRequest(req)
-// 	checkResponseCode(t, http.StatusOK, response.Code)
-
-// }
-
-// func TestUpdateUser(t *testing.T) {
-
-// 	req, _ := http.NewRequest("PUT", "/users/1", nil)
-// 	response := executeRequest(req)
-// 	checkResponseCode(t, http.StatusOK, response.Code)
-
-// }
 
 func clearTable(tablename string) {
 	db, err := database.Connect()
