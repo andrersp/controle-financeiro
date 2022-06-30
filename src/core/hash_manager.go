@@ -14,7 +14,7 @@ func CheckPassword(passwordHash, passwordPlain string) (err error) {
 
 	err = bcrypt.CompareHashAndPassword([]byte(passwordHash), []byte(passwordPlain))
 	if err != nil {
-		err = errors.New("Password dont macth!")
+		err = errors.New("Invalid Passowrd")
 	}
 
 	return

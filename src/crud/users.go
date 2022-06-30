@@ -1,6 +1,7 @@
 package crud
 
 import (
+	"errors"
 	"fmt"
 	"net/http"
 
@@ -116,4 +117,15 @@ func (u User) UpdateUserPassword(userID uint, password string) (err error) {
 		Where("id = ?", userID).
 		Update("password", password).Error
 	return
+}
+
+func (u User) SearchByEmail(email string) (user models.Users, err error) {
+	query := u.db.Where("email = ?", email).First(&user)
+
+	if query.Error != nil {
+		err = errors.New("Email or Passowrd Invalid!")
+
+	}
+	return
+
 }

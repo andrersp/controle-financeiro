@@ -23,6 +23,8 @@ func TestUser(t *testing.T) {
 
 	var strPSWD = []byte(`{"old": "andre123", "new": "admin123"}`)
 
+	var strLogin = []byte(`{ "email": "rsp.assistencia@gmail.com", "password": "andre123"}`)
+
 	t.Run("CreateUser", func(t *testing.T) {
 
 		req, _ := http.NewRequest("POST", "/users", bytes.NewBuffer(strUser))
@@ -50,6 +52,21 @@ func TestUser(t *testing.T) {
 		msg := body
 
 		assert.Equal(t, false, msg["success"], fmt.Sprintf("%s", msg))
+
+	})
+
+	t.Run("LoginSucess", func(t *testing.T) {
+
+		req, _ := http.NewRequest("POST", "/login", bytes.NewBuffer(strLogin))
+
+		response := executeRequest(req)
+		checkResponseCode(t, http.StatusOK, response.Code)
+
+		body := getResponseBody(response)
+
+		msg := body
+
+		assert.Equal(t, true, msg["success"], fmt.Sprintf("%s", msg))
 
 	})
 
@@ -121,6 +138,21 @@ func TestUser(t *testing.T) {
 		checkResponseCode(t, http.StatusNotFound, response.Code)
 		body := getResponseBody(response)
 		assert.Equal(t, false, body["success"], body["error"])
+	})
+
+	t.Run("LoginError", func(t *testing.T) {
+
+		req, _ := http.NewRequest("POST", "/login", bytes.NewBuffer(strLogin))
+
+		response := executeRequest(req)
+		checkResponseCode(t, http.StatusUnauthorized, response.Code)
+
+		body := getResponseBody(response)
+
+		msg := body
+
+		assert.Equal(t, false, msg["success"], fmt.Sprintf("%s", msg))
+
 	})
 
 	t.Run("DeleteUser", func(t *testing.T) {
