@@ -7,12 +7,7 @@ import (
 )
 
 var userRouters = []Router{
-	{
-		URI:         "/users",
-		Method:      http.MethodGet,
-		Func:        controllers.SearchUsers,
-		RequireAuth: false,
-	},
+
 	{
 		URI:         "/users",
 		Method:      http.MethodPost,
@@ -20,27 +15,33 @@ var userRouters = []Router{
 		RequireAuth: false,
 	},
 	{
+		URI:         "/users",
+		Method:      http.MethodGet,
+		Func:        controllers.SearchUsers,
+		RequireAuth: true,
+	},
+	{
 		URI:         "/users/{userID}",
 		Method:      http.MethodGet,
 		Func:        controllers.SelectUser,
-		RequireAuth: false,
+		RequireAuth: true,
 	},
 	{
 		URI:         "/users/{userID}",
 		Method:      http.MethodPut,
 		Func:        controllers.UpdateUser,
-		RequireAuth: false,
+		RequireAuth: true,
 	},
 	{
 		URI:         "/users/{userID}",
 		Method:      http.MethodDelete,
 		Func:        controllers.DeleteUser,
-		RequireAuth: false,
+		RequireAuth: true,
 	},
 	{
 		URI:         "/users/{userID}",
 		Method:      http.MethodPost,
 		Func:        controllers.UpdatePassword,
-		RequireAuth: false,
+		RequireAuth: true,
 	},
 }

@@ -54,12 +54,12 @@ func Login(w http.ResponseWriter, r *http.Request) {
 	response.Sucess(w, http.StatusOK, struct {
 		ID      uint   `json:"id"`
 		Name    string `json:"name"`
-		Token   []byte `json:"token"`
+		Token   string `json:"token"`
 		Success bool   `json:"success"`
 	}{
 		result.ID,
 		result.Name,
-		[]byte(token),
+		string([]byte(token)),
 		true,
 	})
 

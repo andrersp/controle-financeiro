@@ -28,4 +28,6 @@ func LoadConfig() {
 	}
 
 	DATABASE_URI = os.Getenv("DATABASE_URI")
+
+	SECRET_KEY = []byte(os.Getenv("SECRET_KEY"))
 }

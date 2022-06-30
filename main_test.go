@@ -18,6 +18,8 @@ import (
 
 var r *mux.Router
 
+var Token = ""
+
 func TestMain(m *testing.M) {
 
 	core.LoadConfig()

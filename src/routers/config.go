@@ -19,7 +19,14 @@ func configureRouters(r *mux.Router) *mux.Router {
 	userRouters = append(userRouters, loginRouter)
 
 	for _, router := range userRouters {
-		r.HandleFunc(router.URI, core.Logger(router.Func)).Methods(router.Method)
+
+		if router.RequireAuth {
+			r.HandleFunc(router.URI, core.Logger(core.Authenticate(router.Func))).Methods(router.Method)
+
+		} else {
+			r.HandleFunc(router.URI, core.Logger(router.Func)).Methods(router.Method)
+		}
+
 	}
 
 	return r
